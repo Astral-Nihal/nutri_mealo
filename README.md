@@ -1,6 +1,8 @@
 # Nutri Mealo
 
-**Nutri Mealo** is a cross-platform mobile application developed using Flutter. It aims to help users manage their nutritional intake by providing features such as meal tracking, nutritional analysis, and personalized meal recommendations.
+**Nutri Mealo** is a cross-platform mobile application developed using Flutter. It is designed to help users manage their nutritional intake effectively by offering features such as meal tracking, nutritional analysis, and personalized meal recommendations.
+
+---
 
 ## Table of Contents
 
@@ -11,26 +13,36 @@
 - [Contributing](#contributing)
 - [License](#license)
 
+---
+
 ## Features
 
-- **Meal Tracking**: Log daily meals and keep track of calorie intake.
-- **Nutritional Analysis**: Get detailed nutritional information for each meal.
-- **Personalized Recommendations**: Receive meal suggestions based on dietary preferences and goals.
-- **Cross-Platform Support**: Available on Android, iOS, Linux, macOS, Web, and Windows.
+Nutri Mealo provides the following key features:
+
+- **Meal Tracking**: Log daily meals and monitor calorie intake.
+- **Nutritional Analysis**: Access detailed nutritional information for each logged meal.
+- **Personalized Recommendations**: Get meal suggestions tailored to dietary preferences and health goals.
+- **Cross-Platform Support**: Compatible with Android, iOS, Linux, macOS, Web, and Windows.
+
+---
 
 ## Screenshots
 
-![App Screenshot](assets/images/screenshot1.png)
-*Caption: Main dashboard of Nutri Mealo.*
+Here are some screenshots of Nutri Mealo:
 
-![App Screenshot](assets/images/screenshot2.png)
-*Caption: Nutritional analysis of a logged meal.*
+1. **Main Dashboard**
+   - A user-friendly interface to navigate through features and track progress.
+
+2. **Nutritional Analysis**
+   - A detailed breakdown of the nutritional content of logged meals.
+
+---
 
 ## Installation
 
-To run Nutri Mealo locally:
+Follow these steps to run Nutri Mealo locally:
 
 1. **Clone the Repository**:
 
-   ```bash
-   git clone https://github.com/Astral-Nihal/nutri_mealo.git
+   ''bash
+      git clone https://github.com/Astral-Nihal/nutri_mealo.git

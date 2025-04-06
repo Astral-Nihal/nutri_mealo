@@ -43,6 +43,4 @@ Here are some screenshots of Nutri Mealo:
 Follow these steps to run Nutri Mealo locally:
 
 1. **Clone the Repository**:
-
-   ''bash
-      git clone https://github.com/Astral-Nihal/nutri_mealo.git
+''' git clone https://github.com/Astral-Nihal/nutri_mealo.git '''

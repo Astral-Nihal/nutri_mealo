@@ -1,16 +1,36 @@
-# nutri_mealo
+# Nutri Mealo
 
-A new Flutter project.
+**Nutri Mealo** is a cross-platform mobile application developed using Flutter. It aims to help users manage their nutritional intake by providing features such as meal tracking, nutritional analysis, and personalized meal recommendations.
 
-## Getting Started
+## Table of Contents
 
-This project is a starting point for a Flutter application.
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-A few resources to get you started if this is your first Flutter project:
+## Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Meal Tracking**: Log daily meals and keep track of calorie intake.
+- **Nutritional Analysis**: Get detailed nutritional information for each meal.
+- **Personalized Recommendations**: Receive meal suggestions based on dietary preferences and goals.
+- **Cross-Platform Support**: Available on Android, iOS, Linux, macOS, Web, and Windows.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+
+![App Screenshot](assets/images/screenshot1.png)
+*Caption: Main dashboard of Nutri Mealo.*
+
+![App Screenshot](assets/images/screenshot2.png)
+*Caption: Nutritional analysis of a logged meal.*
+
+## Installation
+
+To run Nutri Mealo locally:
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/Astral-Nihal/nutri_mealo.git

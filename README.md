@@ -46,3 +46,52 @@ Follow these steps to run Nutri Mealo locally:
 ```
 git clone https://github.com/Astral-Nihal/nutri_mealo.git
 ```
+
+
+2. **Navigate to the Project Directory**:
+```
+cd nutri_mealo
+```
+
+
+3. **Install Dependencies**:
+Ensure you have Flutter installed on your system. Then run:
+```
+flutter pub get
+```
+
+
+4. **Run the Application**:
+Execute the following command to launch the app:
+```
+flutter run
+```
+
+
+---
+
+## Usage
+
+Once installed, you can use Nutri Mealo to:
+
+1. Log your meals daily.
+2. Analyze the nutritional content of meals.
+3. Receive personalized meal recommendations based on your dietary preferences and goals.
+
+---
+
+## Contributing
+
+We welcome contributions! If you'd like to contribute to Nutri Mealo:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Submit a pull request with a detailed description of your changes.
+
+---
+
+## License
+
+Nutri Mealo is licensed under the MIT License. See the LICENSE file for more details.
+
+---

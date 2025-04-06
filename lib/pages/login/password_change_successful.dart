@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:nutri_mealo/pages/login/change_password_page.dart';
+import 'package:nutri_mealo/pages/login/login_page_enter_details.dart';
 
-class OtpVerificationSuccessfulPage extends StatefulWidget {
-  const OtpVerificationSuccessfulPage({super.key});
+class PasswordChangeSuccessful extends StatefulWidget {
+  const PasswordChangeSuccessful({super.key});
 
   @override
-  State<OtpVerificationSuccessfulPage> createState() =>
-      _OtpVerificationSuccessfulPageState();
+  State<PasswordChangeSuccessful> createState() =>
+      _PasswordChangeSuccessfulState();
 }
 
-class _OtpVerificationSuccessfulPageState
-    extends State<OtpVerificationSuccessfulPage> {
+class _PasswordChangeSuccessfulState extends State<PasswordChangeSuccessful> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -23,11 +22,11 @@ class _OtpVerificationSuccessfulPageState
         body: ListView(
           children: [
             const SizedBox(height: 60),
-            verificationSuccessContentField(),
+            passwordChangeSuccessContentField(),
             const SizedBox(height: 50),
-            verificationSuccessImageField(),
+            passwordChangeSuccessImageField(),
             const SizedBox(height: 50),
-            nextButtonField(),
+            backToLoginButtonField(),
             const SizedBox(height: 50),
           ],
         ),
@@ -35,7 +34,7 @@ class _OtpVerificationSuccessfulPageState
     );
   }
 
-  Padding verificationSuccessImageField() {
+  Padding passwordChangeSuccessImageField() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Image.asset(
@@ -47,11 +46,11 @@ class _OtpVerificationSuccessfulPageState
     );
   }
 
-  Column verificationSuccessContentField() {
+  Column passwordChangeSuccessContentField() {
     return Column(
       children: [
         Text(
-          'Verification Successful',
+          'Password Changed',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black,
@@ -63,7 +62,7 @@ class _OtpVerificationSuccessfulPageState
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            'You can now enter your new password.\nTry to remember this password so that you \ncan have a smooth login next time 😉',
+            'Your Password has been \nchanged successfully',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
@@ -76,13 +75,13 @@ class _OtpVerificationSuccessfulPageState
     );
   }
 
-  Padding nextButtonField() {
+  Padding backToLoginButtonField() {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => ChangePasswordPage()),
+            MaterialPageRoute(builder: (_) => LoginPageEnterDetails()),
           );
         },
         style: ElevatedButton.styleFrom(
@@ -93,7 +92,7 @@ class _OtpVerificationSuccessfulPageState
           ),
         ),
         child: Text(
-          'Next',
+          'Back to Login',
           style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),

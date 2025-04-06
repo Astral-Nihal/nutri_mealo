@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:nutri_mealo/pages/login/login_page_enter_details.dart';
-import 'package:nutri_mealo/pages/login/otp_sent_and_enter_page.dart';
+import 'package:nutri_mealo/pages/signup/account_verification_successful.dart';
 
-class ForgotPasswordPage extends StatefulWidget {
-  const ForgotPasswordPage({super.key});
+class VerifyAccountPage extends StatefulWidget {
+  const VerifyAccountPage({super.key});
 
   @override
-  State<ForgotPasswordPage> createState() => _LoginSuccessfulState();
+  State<VerifyAccountPage> createState() => _VerifyAccountPageState();
 }
 
-class _LoginSuccessfulState extends State<ForgotPasswordPage> {
+class _VerifyAccountPageState extends State<VerifyAccountPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,14 +21,14 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
         body: ListView(
           children: [
             const SizedBox(height: 60),
-            loginSuccessContentField(),
+            enterOtpContentField(),
             const SizedBox(height: 50),
-            loginSuccessImageField(),
+            enterOtpImageField(),
             const SizedBox(height: 30),
-            emailField(),
-            rememberPasswordField(context),
+            enterOtpField(),
+            resentOtpField(context),
             const SizedBox(height: 50),
-            sendOtpButtonField(),
+            verifyButtonField(),
             const SizedBox(height: 50),
           ],
         ),
@@ -37,7 +36,7 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
     );
   }
 
-  Padding rememberPasswordField(BuildContext context) {
+  Padding resentOtpField(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: Align(
@@ -46,7 +45,7 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Remember Password?',
+              'Didn\'t receive OTP?',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
@@ -54,13 +53,9 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
               ),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => LoginPageEnterDetails()),
-                );
-              },
+              onPressed: () {},
               child: const Text(
-                "Login",
+                "Resend",
                 style: TextStyle(
                   color: Color(0xff16C47F), // Green color
                   fontSize: 14,
@@ -74,26 +69,28 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
     );
   }
 
-  Padding emailField() {
+  Padding enterOtpField() {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const Text(
-            "Email",
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            "OTP",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 5),
           TextField(
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.number,
+            maxLength: 6,
+            textAlign: TextAlign.center,
             decoration: InputDecoration(
-              hintText: "Enter your email",
+              hintText: "Enter the OTP",
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
                 borderSide: BorderSide(color: Colors.black),
               ),
-              prefixIcon: const Icon(Icons.email),
             ),
           ),
         ],
@@ -101,11 +98,11 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
     );
   }
 
-  Padding loginSuccessImageField() {
+  Padding enterOtpImageField() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Image.asset(
-        'assets/images/forgot_password.png',
+        'assets/images/otp_mail_sent.png',
         height: 200,
         width: 200,
         fit: BoxFit.contain,
@@ -113,11 +110,11 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
     );
   }
 
-  Column loginSuccessContentField() {
+  Column enterOtpContentField() {
     return Column(
       children: [
         Text(
-          'Forgot Password?',
+          'Verify Your Account',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black,
@@ -129,7 +126,7 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            'Don\'t worry! Enter your registered\nemail address to receive a password \nreset OTP',
+            'Your One Time Password (OTP) has been \nsent to your registered email for account verification',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
@@ -142,13 +139,13 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
     );
   }
 
-  Padding sendOtpButtonField() {
+  Padding verifyButtonField() {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => OtpSentAndEnterPage()),
+            MaterialPageRoute(builder: (_) => AccountVerificationSuccessful()),
           );
         },
         style: ElevatedButton.styleFrom(
@@ -159,7 +156,7 @@ class _LoginSuccessfulState extends State<ForgotPasswordPage> {
           ),
         ),
         child: Text(
-          'Send OTP',
+          'Verify',
           style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),

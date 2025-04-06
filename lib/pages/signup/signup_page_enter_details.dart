@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nutri_mealo/pages/login/login_page_enter_details.dart';
+import 'package:nutri_mealo/pages/signup/verify_account_page.dart';
 
 class SignupPageEnterDetails extends StatefulWidget {
   const SignupPageEnterDetails({super.key});
@@ -35,7 +36,7 @@ class _SignupPageEnterDetailsState extends State<SignupPageEnterDetails> {
             const SizedBox(height: 50),
             reEnterPasswordField(),
             const SizedBox(height: 70),
-            signupField(),
+            signupButtonField(),
             const SizedBox(height: 50),
           ],
         ),
@@ -43,11 +44,15 @@ class _SignupPageEnterDetailsState extends State<SignupPageEnterDetails> {
     );
   }
 
-  Padding signupField() {
+  Padding signupButtonField() {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => VerifyAccountPage()),
+          );
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xffF93827),
           minimumSize: const Size(300, 60),

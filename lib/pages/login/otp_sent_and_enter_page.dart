@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:nutri_mealo/pages/login/otp_verification_successful_page.dart';
 
 class OtpSentAndEnterPage extends StatefulWidget {
@@ -83,11 +82,7 @@ class _OtpSentAndEnterPageState extends State<OtpSentAndEnterPage> {
           ),
           const SizedBox(height: 5),
           TextField(
-            textCapitalization: TextCapitalization.characters,
-            textInputAction: TextInputAction.done,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'[A-Z0-9]')),
-            ],
+            keyboardType: TextInputType.number,
             maxLength: 6,
             textAlign: TextAlign.center,
             decoration: InputDecoration(

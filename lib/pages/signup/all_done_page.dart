@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:nutri_mealo/pages/login/change_password_page.dart';
 
-class OtpVerificationSuccessfulPage extends StatefulWidget {
-  const OtpVerificationSuccessfulPage({super.key});
+class AllDonePage extends StatefulWidget {
+  const AllDonePage({super.key});
 
   @override
-  State<OtpVerificationSuccessfulPage> createState() =>
-      _OtpVerificationSuccessfulPageState();
+  State<AllDonePage> createState() => _AllDonePageState();
 }
 
-class _OtpVerificationSuccessfulPageState
-    extends State<OtpVerificationSuccessfulPage> {
+class _AllDonePageState extends State<AllDonePage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -23,11 +20,11 @@ class _OtpVerificationSuccessfulPageState
         body: ListView(
           children: [
             const SizedBox(height: 60),
-            verificationSuccessContentField(),
+            allDoneContentField(),
             const SizedBox(height: 50),
-            verificationSuccessImageField(),
+            allDoneImageField(),
             const SizedBox(height: 50),
-            nextButtonField(),
+            letsGoButtonField(),
             const SizedBox(height: 50),
           ],
         ),
@@ -35,11 +32,11 @@ class _OtpVerificationSuccessfulPageState
     );
   }
 
-  Padding verificationSuccessImageField() {
+  Padding allDoneImageField() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Image.asset(
-        'assets/images/verified.png',
+        'assets/images/all_done.png',
         width: 250,
         height: 400,
         fit: BoxFit.contain,
@@ -47,11 +44,11 @@ class _OtpVerificationSuccessfulPageState
     );
   }
 
-  Column verificationSuccessContentField() {
+  Column allDoneContentField() {
     return Column(
       children: [
         Text(
-          'Verification Successful',
+          'All Done',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black,
@@ -63,7 +60,7 @@ class _OtpVerificationSuccessfulPageState
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            'You can now enter your new password.\nTry to remember this password so that you \ncan have a smooth login next time 😉',
+            'Thanks for giving us your precious time.\nNow you\'re ready for making a more \nhealthier and productive life.',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
@@ -76,14 +73,14 @@ class _OtpVerificationSuccessfulPageState
     );
   }
 
-  Padding nextButtonField() {
+  Padding letsGoButtonField() {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => ChangePasswordPage()),
-          );
+          // Navigator.of(context).pushReplacement(
+          //   MaterialPageRoute(builder: (_) => SetupProfilePage()),
+          // );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xffF93827),
@@ -93,7 +90,7 @@ class _OtpVerificationSuccessfulPageState
           ),
         ),
         child: Text(
-          'Next',
+          'Let\'s Go!',
           style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),

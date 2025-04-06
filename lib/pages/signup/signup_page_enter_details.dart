@@ -192,7 +192,11 @@ class _SignupPageEnterDetailsState extends State<SignupPageEnterDetails> {
     return Padding(
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => VerifyAccountPage()),
+          );
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white70,
           fixedSize: const Size(100, 60),

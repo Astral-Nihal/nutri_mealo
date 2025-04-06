@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_mealo/pages/signup/account_verification_successful.dart';
+import 'dart:async';
 
 class VerifyAccountPage extends StatefulWidget {
   const VerifyAccountPage({super.key});
@@ -9,6 +10,34 @@ class VerifyAccountPage extends StatefulWidget {
 }
 
 class _VerifyAccountPageState extends State<VerifyAccountPage> {
+  bool _isResendEnabled = true;
+  int _resendCountdown = 30;
+  Timer? _timer;
+
+  void _startResendCooldown() {
+    setState(() {
+      _isResendEnabled = false;
+      _resendCountdown = 30;
+    });
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_resendCountdown > 1) {
+          _resendCountdown--;
+        } else {
+          _isResendEnabled = true;
+          _timer?.cancel();
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Clean up the timer
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -53,11 +82,18 @@ class _VerifyAccountPageState extends State<VerifyAccountPage> {
               ),
             ),
             TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Resend",
+              onPressed:
+                  _isResendEnabled
+                      ? () {
+                        // 🔄 Your resend logic goes here
+                        _startResendCooldown();
+                      }
+                      : null,
+              child: Text(
+                _isResendEnabled ? "Resend" : "Resend ($_resendCountdown)",
                 style: TextStyle(
-                  color: Color(0xff16C47F), // Green color
+                  color:
+                      _isResendEnabled ? const Color(0xff16C47F) : Colors.grey,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),

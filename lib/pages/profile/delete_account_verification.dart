@@ -1,15 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:nutri_mealo/pages/login/otp_verification_successful_page.dart';
 import 'dart:async';
 
-class OtpSentAndEnterPage extends StatefulWidget {
-  const OtpSentAndEnterPage({super.key});
+import 'package:flutter/material.dart';
+import 'package:nutri_mealo/pages/profile/delete_account_verification_successful.dart';
+
+class DeleteAccountVerification extends StatefulWidget {
+  const DeleteAccountVerification({super.key});
 
   @override
-  State<OtpSentAndEnterPage> createState() => _OtpSentAndEnterPageState();
+  State<DeleteAccountVerification> createState() =>
+      _DeleteAccountVerificationState();
 }
 
-class _OtpSentAndEnterPageState extends State<OtpSentAndEnterPage> {
+class _DeleteAccountVerificationState extends State<DeleteAccountVerification> {
   bool _isResendEnabled = true;
   int _resendCountdown = 30;
   Timer? _timer;
@@ -162,7 +164,7 @@ class _OtpSentAndEnterPageState extends State<OtpSentAndEnterPage> {
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            'An One Time Password (OTP) has been \nsent to your registered email',
+            'An One Time Password (OTP) has been \nsent to your registered email to delete your account',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
@@ -181,7 +183,9 @@ class _OtpSentAndEnterPageState extends State<OtpSentAndEnterPage> {
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => OtpVerificationSuccessfulPage()),
+            MaterialPageRoute(
+              builder: (_) => DeleteAccountVerificationSuccessful(),
+            ),
           );
         },
         style: ElevatedButton.styleFrom(

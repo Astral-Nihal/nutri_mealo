@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:nutri_mealo/widgets/main_navigation.dart';
+import 'package:nutri_mealo/pages/login/login_page_enter_details.dart';
 
-class LoginSuccessful extends StatefulWidget {
-  const LoginSuccessful({super.key});
+class DeleteAccountVerificationSuccessful extends StatefulWidget {
+  const DeleteAccountVerificationSuccessful({super.key});
 
   @override
-  State<LoginSuccessful> createState() => _LoginSuccessfulState();
+  State<DeleteAccountVerificationSuccessful> createState() =>
+      _DeleteAccountVerificationSuccessfulState();
 }
 
-class _LoginSuccessfulState extends State<LoginSuccessful> {
+class _DeleteAccountVerificationSuccessfulState
+    extends State<DeleteAccountVerificationSuccessful> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,9 +24,9 @@ class _LoginSuccessfulState extends State<LoginSuccessful> {
           children: [
             const SizedBox(height: 60),
             loginSuccessContentField(),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             loginSuccessImageField(),
-            const SizedBox(height: 50),
+            const SizedBox(height: 20),
             enterField(),
             const SizedBox(height: 50),
           ],
@@ -37,7 +39,7 @@ class _LoginSuccessfulState extends State<LoginSuccessful> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Image.asset(
-        'assets/images/login_success.png',
+        'assets/images/logout_image.png',
         width: 250,
         fit: BoxFit.contain,
       ),
@@ -48,7 +50,7 @@ class _LoginSuccessfulState extends State<LoginSuccessful> {
     return Column(
       children: [
         Text(
-          'Login Successful',
+          'Account Deleted',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colors.black,
@@ -56,11 +58,11 @@ class _LoginSuccessfulState extends State<LoginSuccessful> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 50),
+        SizedBox(height: 30),
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: Text(
-            'You have been logged in successfully!',
+            'Verification Successful.\nYour account have been deleted successfully',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
@@ -79,7 +81,7 @@ class _LoginSuccessfulState extends State<LoginSuccessful> {
       child: ElevatedButton(
         onPressed: () {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => MainNavigation()),
+            MaterialPageRoute(builder: (_) => LoginPageEnterDetails()),
           );
         },
         style: ElevatedButton.styleFrom(
@@ -90,7 +92,7 @@ class _LoginSuccessfulState extends State<LoginSuccessful> {
           ),
         ),
         child: Text(
-          'Enter',
+          'Done',
           style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),

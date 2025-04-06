@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:nutri_mealo/pages/signup/setup_profile_page_second.dart';
+import 'package:nutri_mealo/pages/profile/edit_profile/edit_profile_page2.dart';
+import 'package:nutri_mealo/pages/profile/profile_home_page.dart';
 
-class SetupProfilePage extends StatefulWidget {
-  const SetupProfilePage({super.key});
+class EditProfilePage1 extends StatefulWidget {
+  const EditProfilePage1({super.key});
 
   @override
-  State<SetupProfilePage> createState() => _SetupProfilePageState();
+  State<EditProfilePage1> createState() => _EditProfilePage1State();
 }
 
-class _SetupProfilePageState extends State<SetupProfilePage> {
+class _EditProfilePage1State extends State<EditProfilePage1> {
   DateTime? _selectedDate;
   int? _calculatedAge;
 
-  String? _selectedGender = "Male";
+  String _selectedGender = "Male";
 
   bool _dobError = false;
 
@@ -32,7 +33,7 @@ class _SetupProfilePageState extends State<SetupProfilePage> {
           child: ListView(
             children: [
               const SizedBox(height: 30),
-              setupProfileContentField(),
+              editProfileContentField(),
               const SizedBox(height: 30),
               enterNameField(),
               const SizedBox(height: 20),
@@ -132,7 +133,7 @@ class _SetupProfilePageState extends State<SetupProfilePage> {
             visualDensity: VisualDensity.compact,
             onChanged: (value) {
               setState(() {
-                _selectedGender = value;
+                _selectedGender = value!;
               });
             },
           ),
@@ -144,7 +145,7 @@ class _SetupProfilePageState extends State<SetupProfilePage> {
             visualDensity: VisualDensity.compact,
             onChanged: (value) {
               setState(() {
-                _selectedGender = value;
+                _selectedGender = value!;
               });
             },
           ),
@@ -156,7 +157,7 @@ class _SetupProfilePageState extends State<SetupProfilePage> {
             visualDensity: VisualDensity.compact,
             onChanged: (value) {
               setState(() {
-                _selectedGender = value;
+                _selectedGender = value!;
               });
             },
           ),
@@ -296,16 +297,64 @@ class _SetupProfilePageState extends State<SetupProfilePage> {
     );
   }
 
-  Center setupProfileContentField() {
-    return const Center(
-      child: Text(
-        "Setup Profile",
-        style: TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
+  Widget _circularIconButton({
+    required IconData icon,
+    required VoidCallback? onTap,
+    double iconSize = 24,
+    bool disabled = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      child: Material(
+        color: disabled ? Colors.grey[300] : Colors.grey[200],
+        shape: const CircleBorder(),
+        elevation: 0, // No shadow as you requested earlier
+        child: InkWell(
+          onTap: disabled ? null : onTap,
+          customBorder: const CircleBorder(),
+          splashColor: Colors.grey.withOpacity(0.3),
+          child: Container(
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black54),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              icon,
+              size: iconSize,
+              color: disabled ? Colors.grey : Colors.black,
+            ),
+          ),
         ),
       ),
+    );
+  }
+
+  Row editProfileContentField() {
+    return Row(
+      children: [
+        const SizedBox(width: 15),
+        // Circular close button
+        _circularIconButton(
+          icon: Icons.arrow_back,
+          onTap: () {
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (_) => ProfileHomePage()),
+            );
+          },
+        ),
+        SizedBox(width: 100),
+        // Title centered
+        Center(
+          child: Text(
+            'Edit Profile',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ),
+
+        // Space to balance right side
+        const SizedBox(width: 48),
+      ],
     );
   }
 
@@ -323,7 +372,7 @@ class _SetupProfilePageState extends State<SetupProfilePage> {
 
           if (formValid && dobValid) {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => SetupProfilePageSecond()),
+              MaterialPageRoute(builder: (_) => EditProfilePage2()),
             );
           }
         },

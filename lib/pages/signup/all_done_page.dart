@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutri_mealo/widgets/main_navigation.dart';
 
 class AllDonePage extends StatefulWidget {
   const AllDonePage({super.key});
@@ -78,9 +79,9 @@ class _AllDonePageState extends State<AllDonePage> {
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: ElevatedButton(
         onPressed: () {
-          // Navigator.of(context).pushReplacement(
-          //   MaterialPageRoute(builder: (_) => SetupProfilePage()),
-          // );
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => MainNavigation()),
+          );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xffF93827),

@@ -10,7 +10,6 @@
 - [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ---
@@ -77,16 +76,6 @@ Once installed, you can use Nutri Mealo to:
 1. Log your meals daily.
 2. Analyze the nutritional content of meals.
 3. Receive personalized meal recommendations based on your dietary preferences and goals.
-
----
-
-## Contributing
-
-We welcome contributions! If you'd like to contribute to Nutri Mealo:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Submit a pull request with a detailed description of your changes.
 
 ---
 

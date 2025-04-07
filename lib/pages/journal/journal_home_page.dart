@@ -241,7 +241,7 @@ class _JournalHomePageState extends State<JournalHomePage> {
           _circularIconButton(
             icon: Icons.keyboard_arrow_right_outlined,
             onTap:
-                _isToday(_selectedDate)
+                _isTodayOrAfter(_selectedDate)
                     ? null
                     : () {
                       setState(() {
@@ -250,7 +250,7 @@ class _JournalHomePageState extends State<JournalHomePage> {
                         );
                       });
                     },
-            disabled: _isToday(_selectedDate),
+            disabled: _isTodayOrAfter(_selectedDate),
           ),
 
           const SizedBox(width: 8),
@@ -302,6 +302,15 @@ class _JournalHomePageState extends State<JournalHomePage> {
         ),
       ),
     );
+  }
+
+  bool _isTodayOrAfter(DateTime date) {
+    final now = DateTime.now();
+    return date.year > now.year ||
+        (date.year == now.year && date.month > now.month) ||
+        (date.year == now.year &&
+            date.month == now.month &&
+            date.day >= now.day);
   }
 
   AppBar commonAppBar() {

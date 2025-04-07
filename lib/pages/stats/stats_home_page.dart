@@ -1,5 +1,5 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class StatsHomePage extends StatefulWidget {
   const StatsHomePage({super.key});
@@ -9,292 +9,42 @@ class StatsHomePage extends StatefulWidget {
 }
 
 class _StatsHomePageState extends State<StatsHomePage> {
-  DateTime _selectedDate = DateTime.now();
-
-  bool _isToday(DateTime date) {
-    final now = DateTime.now();
-    return now.year == date.year &&
-        now.month == date.month &&
-        now.day == date.day;
-  }
-
-  String _getWeekday(DateTime date) {
-    const weekdays = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ];
-    return weekdays[date.weekday - 1];
-  }
+  final List<bool> _isExpanded = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: commonAppBar(),
         body: ListView(
+          padding: const EdgeInsets.symmetric(vertical: 20),
           children: [
-            const SizedBox(height: 10),
-            menuBarField(context),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'Statistics',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+            ),
             const SizedBox(height: 20),
-            weeklyDateCards(),
-            const SizedBox(height: 40),
-            mealCard(icon: Icons.breakfast_dining, title: 'Breakfast'),
-            const SizedBox(height: 10),
-            mealCard(icon: Icons.local_cafe, title: 'Morning Snack'),
-            const SizedBox(height: 10),
-            mealCard(icon: Icons.lunch_dining, title: 'Lunch'),
-            const SizedBox(height: 10),
-
-            const SizedBox(height: 10),
+            _buildExpandableCard(
+              index: 0,
+              title: 'Daily Stats',
+              child: _buildDailyStatsChart(),
+            ),
+            _buildExpandableCard(
+              index: 1,
+              title: 'Weekly Stats',
+              child: _buildWeeklyStatsChart(),
+            ),
+            _buildExpandableCard(
+              index: 2,
+              title: 'Dish Ratings',
+              child: _buildDishRatingsChart(),
+            ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget mealCard({required IconData icon, required String title}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: Colors.black54),
-        ),
-        color: Colors.grey.shade200,
-        child: ListTile(
-          leading: Icon(icon, size: 30),
-          title: Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.w600),
-          ),
-          trailing: IconButton(
-            icon: const Icon(Icons.keyboard_arrow_right_outlined),
-            onPressed: () {
-              //_showMealPopup(title);
-            },
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget weeklyDateCards() {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final startOfWeek = _selectedDate.subtract(
-      Duration(days: _selectedDate.weekday - 1),
-    ); // Monday
-    final weekDates = List.generate(
-      7,
-      (index) => startOfWeek.add(Duration(days: index)),
-    );
-
-    final cardSpacing = 4.0;
-    final totalSpacing = cardSpacing * (weekDates.length - 1);
-    final horizontalPadding = 24.0; // 12 left + 12 right
-    final cardWidth = (screenWidth - horizontalPadding - totalSpacing) / 7;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: SizedBox(
-        height: 80,
-        child: Row(
-          children: List.generate(weekDates.length, (index) {
-            final date = weekDates[index];
-            final isSelected =
-                date.year == _selectedDate.year &&
-                date.month == _selectedDate.month &&
-                date.day == _selectedDate.day;
-
-            return Padding(
-              padding: EdgeInsets.only(
-                right: index != weekDates.length - 1 ? cardSpacing : 0,
-              ),
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    _selectedDate = date;
-                  });
-                },
-                child: Container(
-                  width: cardWidth,
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: BoxDecoration(
-                    color:
-                        isSelected
-                            ? const Color(0xff16C47F)
-                            : Colors.grey.shade200,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.black54),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        DateFormat('MMM').format(date).toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        date.day.toString(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        DateFormat('E').format(date),
-                        style: const TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          }),
-        ),
-      ),
-    );
-  }
-
-  Padding menuBarField(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Row(
-        children: [
-          // 📅 Date Picker Button
-          _circularIconButton(
-            icon: Icons.date_range,
-            onTap: () async {
-              DateTime? picked = await showDatePicker(
-                context: context,
-                initialDate: _selectedDate,
-                firstDate: DateTime(1900),
-                lastDate: DateTime.now(),
-              );
-              if (picked != null) {
-                setState(() {
-                  _selectedDate = picked;
-                });
-              }
-            },
-          ),
-
-          const SizedBox(width: 8),
-
-          // ◀️ Left Arrow
-          _circularIconButton(
-            icon: Icons.keyboard_arrow_left_outlined,
-            onTap: () {
-              setState(() {
-                _selectedDate = _selectedDate.subtract(const Duration(days: 1));
-              });
-            },
-          ),
-
-          // 📅 Center Calendar Info
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.calendar_today, color: Colors.grey, size: 20),
-                const SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${_selectedDate.day}/${_selectedDate.month}/${_selectedDate.year}",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    Text(
-                      _isToday(_selectedDate)
-                          ? 'Today'
-                          : _getWeekday(_selectedDate),
-                      style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-
-          // ▶️ Right Arrow
-          _circularIconButton(
-            icon: Icons.keyboard_arrow_right_outlined,
-            onTap:
-                _isToday(_selectedDate)
-                    ? null
-                    : () {
-                      setState(() {
-                        _selectedDate = _selectedDate.add(
-                          const Duration(days: 1),
-                        );
-                      });
-                    },
-            disabled: _isToday(_selectedDate),
-          ),
-
-          const SizedBox(width: 8),
-
-          // 👤 Profile Icon
-          _circularIconButton(
-            icon: Icons.account_circle,
-            onTap: () {
-              // Navigate to profile
-            },
-            iconSize: 30,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _circularIconButton({
-    required IconData icon,
-    required VoidCallback? onTap,
-    double iconSize = 24,
-    bool disabled = false,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: Material(
-        color: disabled ? Colors.grey[300] : Colors.grey[200],
-        shape: const CircleBorder(),
-        child: InkWell(
-          onTap: disabled ? null : onTap,
-          customBorder: const CircleBorder(),
-          splashColor: Colors.grey.withOpacity(0.3),
-          child: Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.black54,
-              ), // <-- Added border here
-            ),
-            child: Icon(
-              icon,
-              size: iconSize,
-              color: disabled ? Colors.grey : Colors.black,
-            ),
-          ),
         ),
       ),
     );
@@ -312,6 +62,344 @@ class _StatsHomePageState extends State<StatsHomePage> {
         ),
       ),
       centerTitle: true,
+    );
+  }
+
+  Widget _buildExpandableCard({
+    required int index,
+    required String title,
+    required Widget child,
+  }) {
+    final isOpen = _isExpanded[index];
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: const BorderSide(color: Colors.black54),
+        ),
+        color: Colors.grey.shade200,
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  for (int i = 0; i < _isExpanded.length; i++) {
+                    _isExpanded[i] = i == index ? !_isExpanded[i] : false;
+                  }
+                });
+              },
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.bar_chart),
+                    title: Text(
+                      title,
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                    trailing: AnimatedRotation(
+                      turns: isOpen ? 0.5 : 0,
+                      duration: const Duration(milliseconds: 200),
+                      child: const Icon(Icons.keyboard_arrow_down_outlined),
+                    ),
+                  ),
+                  if (isOpen)
+                    Container(
+                      height: 1,
+                      width: double.infinity,
+                      color: Colors.black38,
+                      margin: const EdgeInsets.symmetric(horizontal: 16),
+                    ),
+                ],
+              ),
+            ),
+            AnimatedSize(
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              child: ClipRect(
+                child:
+                    isOpen
+                        ? Padding(
+                          padding: const EdgeInsets.only(
+                            top: 12,
+                          ), // << spacing before chart
+                          child: child,
+                        )
+                        : const SizedBox.shrink(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDailyStatsChart() {
+    final List<double> dailyData = [30, 55, 42, 75, 63, 28, 47];
+    final weekNumber =
+        DateTime.now().difference(DateTime(DateTime.now().year, 1, 1)).inDays ~/
+            7 +
+        1;
+    const barColor = Color(0xff16C47F);
+    const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 16, top: 6),
+          child: Text(
+            "Week $weekNumber",
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        SizedBox(height: 20),
+        AspectRatio(
+          aspectRatio: 1.5,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: BarChart(
+              BarChartData(
+                barTouchData: BarTouchData(enabled: true),
+                alignment: BarChartAlignment.spaceAround,
+                titlesData: FlTitlesData(
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget:
+                          (value, meta) => Text(
+                            value.toInt().toString(),
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                      reservedSize: 28,
+                    ),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget:
+                          (value, meta) => Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Text(
+                              weekdays[value.toInt()],
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ),
+                    ),
+                  ),
+                  topTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                ),
+                gridData: FlGridData(show: true),
+                barGroups: List.generate(dailyData.length, (index) {
+                  return BarChartGroupData(
+                    x: index,
+                    barRods: [
+                      BarChartRodData(
+                        toY: dailyData[index],
+                        color: barColor,
+                        width: 18,
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          child: Row(
+            children: [
+              Container(width: 12, height: 12, color: barColor),
+              const SizedBox(width: 8),
+              const Text(
+                "Protein intake (grams)",
+                style: TextStyle(fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildWeeklyStatsChart() {
+    final List<double> weeklyData = [210, 195, 240, 180];
+    final currentWeek =
+        DateTime.now().difference(DateTime(DateTime.now().year, 1, 1)).inDays ~/
+            7 +
+        1;
+    final List<String> labels = List.generate(
+      4,
+      (i) => 'Week${currentWeek - 3 + i}',
+    );
+    const barColor = Color(0xff16C47F);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        AspectRatio(
+          aspectRatio: 1.5,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: BarChart(
+              BarChartData(
+                barTouchData: BarTouchData(enabled: true),
+                alignment: BarChartAlignment.spaceAround,
+                titlesData: FlTitlesData(
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget:
+                          (value, meta) => Text(
+                            value.toInt().toString(),
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                      reservedSize: 28,
+                    ),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget:
+                          (value, meta) => Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Text(
+                              labels[value.toInt()],
+                              style: const TextStyle(fontSize: 12),
+                            ),
+                          ),
+                    ),
+                  ),
+                  topTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  rightTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                ),
+                gridData: FlGridData(show: true),
+                barGroups: List.generate(weeklyData.length, (index) {
+                  return BarChartGroupData(
+                    x: index,
+                    barRods: [
+                      BarChartRodData(
+                        toY: weeklyData[index],
+                        color: barColor,
+                        width: 18,
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ],
+                  );
+                }),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          child: Row(
+            children: [
+              Container(width: 12, height: 12, color: barColor),
+              const SizedBox(width: 8),
+              const Text(
+                "Protein intake (grams)",
+                style: TextStyle(fontSize: 13),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDishRatingsChart() {
+    const liked = 50.0;
+    const disliked = 20.0;
+    const notTried = 30.0;
+
+    const likedColor = Color(0xff16C47F);
+    const dislikedColor = Colors.redAccent;
+    const notTriedColor = Colors.grey;
+
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: 2,
+          child: PieChart(
+            PieChartData(
+              sectionsSpace: 2,
+              centerSpaceRadius: 40,
+              sections: [
+                PieChartSectionData(
+                  value: liked,
+                  color: likedColor,
+                  title: '${liked.toInt()}%',
+                  titleStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                PieChartSectionData(
+                  value: disliked,
+                  color: dislikedColor,
+                  title: '${disliked.toInt()}%',
+                  titleStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                PieChartSectionData(
+                  value: notTried,
+                  color: notTriedColor,
+                  title: '${notTried.toInt()}%',
+                  titleStyle: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 16,
+          children: [
+            _buildLegendButton("Liked", likedColor),
+            _buildLegendButton("Disliked", dislikedColor),
+            _buildLegendButton("Haven't Tried", notTriedColor),
+          ],
+        ),
+        const SizedBox(height: 12),
+      ],
+    );
+  }
+
+  Widget _buildLegendButton(String label, Color color) {
+    return TextButton.icon(
+      onPressed: () {},
+      icon: Container(
+        width: 12,
+        height: 12,
+        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+      ),
+      label: Text(label, style: const TextStyle(color: Colors.black87)),
+      style: TextButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        foregroundColor: Colors.black,
+      ),
     );
   }
 }

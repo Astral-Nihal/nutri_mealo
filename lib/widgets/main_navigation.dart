@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_mealo/pages/journal/journal_home_page.dart';
+import 'package:nutri_mealo/pages/meal_plan/meal_plan_home_page.dart';
+import 'package:nutri_mealo/pages/more/more_home_page.dart';
 import 'package:nutri_mealo/pages/stats/stats_home_page.dart';
 
 // Import your individual screen widgets
@@ -13,7 +15,13 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = const [JournalHomePage(), StatsHomePage()];
+  final List<Widget> _pages = const [
+    JournalHomePage(),
+    StatsHomePage(),
+    MealPlanHomePage(),
+    MealPlanHomePage(),
+    MoreHomePage(),
+  ];
 
   final Color _selectedColor = Color(0xffF93827);
 

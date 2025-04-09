@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nutri_mealo/pages/more/favorite_dish/favorite_dishes_page.dart';
+import 'package:nutri_mealo/pages/more/recipes/recipes_page.dart';
 
 class MoreHomePage extends StatefulWidget {
   const MoreHomePage({super.key});
@@ -21,10 +23,38 @@ class _MoreHomePageState extends State<MoreHomePage> {
             style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 20),
-          _buildOptionCard(Icons.calendar_today, 'Previous Meal Plans'),
-          _buildOptionCard(Icons.menu_book, 'Recipes'),
-          _buildOptionCard(Icons.favorite, 'Favorite Dishes'),
-          _buildOptionCard(Icons.shopping_cart, 'Grocery List'),
+          _buildOptionCard(
+            Icons.calendar_today,
+            'Previous Meal Plans',
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => RecipesPage()),
+            ),
+          ),
+          _buildOptionCard(
+            Icons.menu_book,
+            'Recipes',
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => RecipesPage()),
+            ),
+          ),
+          _buildOptionCard(
+            Icons.favorite,
+            'Favorite Dishes',
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => FavoriteDishesPage()),
+            ),
+          ),
+          _buildOptionCard(
+            Icons.shopping_cart,
+            'Grocery List',
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => RecipesPage()),
+            ),
+          ),
         ],
       ),
     );
@@ -46,7 +76,7 @@ class _MoreHomePageState extends State<MoreHomePage> {
     );
   }
 
-  Widget _buildOptionCard(IconData icon, String title) {
+  Widget _buildOptionCard(IconData icon, String title, VoidCallback onPressed) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 6),
       child: Card(
@@ -63,13 +93,9 @@ class _MoreHomePageState extends State<MoreHomePage> {
           ),
           trailing: IconButton(
             icon: const Icon(Icons.keyboard_arrow_right_outlined),
-            onPressed: () {
-              // Add your navigation or action here
-            },
+            onPressed: onPressed,
           ),
-          onTap: () {
-            // Optional: Handle tap here too
-          },
+          onTap: onPressed,
         ),
       ),
     );

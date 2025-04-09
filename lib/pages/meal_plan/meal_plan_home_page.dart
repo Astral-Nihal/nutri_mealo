@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutri_mealo/pages/more/recipes/recipes_page.dart';
 
 class MealPlanHomePage extends StatefulWidget {
   const MealPlanHomePage({super.key});
@@ -159,25 +160,17 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Align(
             alignment: Alignment.centerRight,
-            child: ElevatedButton.icon(
+            child: IconButton(
               onPressed: () {
-                // Navigate to recipe page later
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Navigate to recipe page"),
-                    duration: Duration(milliseconds: 800),
-                  ),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => RecipesPage()),
                 );
               },
-              icon: const Icon(Icons.receipt_long_outlined),
-              label: const Text("View Recipes"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.teal,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
+              icon: const Icon(Icons.menu_book, color: Colors.black),
+              style: IconButton.styleFrom(
+                backgroundColor: const Color(0xff16C47F),
+                padding: const EdgeInsets.all(8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -185,6 +178,7 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
             ),
           ),
         ),
+
         const SizedBox(height: 10),
       ],
     );

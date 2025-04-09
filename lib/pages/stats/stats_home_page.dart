@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:nutri_mealo/pages/stats/dish_manager_page.dart';
 
 class StatsHomePage extends StatefulWidget {
   const StatsHomePage({super.key});
@@ -323,11 +324,9 @@ class _StatsHomePageState extends State<StatsHomePage> {
   Widget _buildDishRatingsChart() {
     const liked = 50.0;
     const disliked = 20.0;
-    const notTried = 30.0;
 
     const likedColor = Color(0xff16C47F);
     const dislikedColor = Colors.redAccent;
-    const notTriedColor = Colors.grey;
 
     return Column(
       children: [
@@ -358,16 +357,6 @@ class _StatsHomePageState extends State<StatsHomePage> {
                     color: Colors.white,
                   ),
                 ),
-                PieChartSectionData(
-                  value: notTried,
-                  color: notTriedColor,
-                  title: '${notTried.toInt()}%',
-                  titleStyle: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
               ],
             ),
           ),
@@ -377,9 +366,26 @@ class _StatsHomePageState extends State<StatsHomePage> {
           alignment: WrapAlignment.center,
           spacing: 16,
           children: [
-            _buildLegendButton("Liked", likedColor),
-            _buildLegendButton("Disliked", dislikedColor),
-            _buildLegendButton("Haven't Tried", notTriedColor),
+            _buildLegendButton(
+              "Liked",
+              likedColor,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const DishManagerPage(initialTabIndex: 0),
+                ),
+              ),
+            ),
+            _buildLegendButton(
+              "Disliked",
+              dislikedColor,
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const DishManagerPage(initialTabIndex: 1),
+                ),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 12),
@@ -387,9 +393,9 @@ class _StatsHomePageState extends State<StatsHomePage> {
     );
   }
 
-  Widget _buildLegendButton(String label, Color color) {
+  Widget _buildLegendButton(String label, Color color, VoidCallback onPressed) {
     return TextButton.icon(
-      onPressed: () {},
+      onPressed: onPressed,
       icon: Container(
         width: 12,
         height: 12,

@@ -1,16 +1,23 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:nutri_mealo/pages/more/recipes/recipes_page.dart';
 
-// TODO: Add a button where we can print the meal plan for that week.
+class PreviousWeekMealPlanPage extends StatefulWidget {
+  final int weekNumber;
+  final String weekRange;
 
-class MealPlanHomePage extends StatefulWidget {
-  const MealPlanHomePage({super.key});
+  const PreviousWeekMealPlanPage({
+    super.key,
+    required this.weekNumber,
+    required this.weekRange,
+  });
 
   @override
-  State<MealPlanHomePage> createState() => _MealPlanHomePageState();
+  State<PreviousWeekMealPlanPage> createState() =>
+      _PreviousWeekMealPlanPageState();
 }
 
-class _MealPlanHomePageState extends State<MealPlanHomePage> {
+class _PreviousWeekMealPlanPageState extends State<PreviousWeekMealPlanPage> {
   final List<String> days = [
     'Monday',
     'Tuesday',
@@ -21,64 +28,92 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
     'Sunday',
   ];
 
-  final Map<String, List<String>> mealDetails = {
-    'Monday': [
-      'Breakfast - Idly with Sambar',
-      'Morning Snack - Chickpeas',
-      'Lunch - Mutton Biryani',
-      'Evening Snack - Chicken Momo',
-      'Dinner - Chappathi with Paneer Butter Masala',
-    ],
-    'Tuesday': [
-      'Breakfast - Dosa with Chutney',
-      'Morning Snack - Banana',
-      'Lunch - Veg Fried Rice',
-      'Evening Snack - Boiled Corn',
-      'Dinner - Roti with Mixed Veg Curry',
-    ],
-    'Wednesday': [
-      'Breakfast - Poha',
-      'Morning Snack - Apple',
-      'Lunch - Lemon Rice with Papad',
-      'Evening Snack - Samosa',
-      'Dinner - Pulao with Raita',
-    ],
-    'Thursday': [
-      'Breakfast - Upma',
-      'Morning Snack - Sprouts',
-      'Lunch - Fish Curry with Rice',
-      'Evening Snack - Roasted Makhana',
-      'Dinner - Paratha with Curd',
-    ],
-    'Friday': [
-      'Breakfast - Aloo Paratha',
-      'Morning Snack - Orange',
-      'Lunch - Rajma Chawal',
-      'Evening Snack - Bhel Puri',
-      'Dinner - Dhokla & Chutney',
-    ],
-    'Saturday': [
-      'Breakfast - Pancakes',
-      'Morning Snack - Yogurt',
-      'Lunch - Paneer Butter Masala with Naan',
-      'Evening Snack - Popcorn',
-      'Dinner - Vegetable Sandwich',
-    ],
-    'Sunday': [
-      'Breakfast - Poori with Masala',
-      'Morning Snack - Grapes',
-      'Lunch - Chicken Biryani',
-      'Evening Snack - French Fries',
-      'Dinner - Egg Curry with Rice',
-    ],
-  };
+  final List<String> mealTypes = [
+    'Breakfast',
+    'Morning Snack',
+    'Lunch',
+    'Evening Snack',
+    'Dinner',
+  ];
 
+  final List<String> allDishes = [
+    'Idly with Sambar',
+    'Dosa with Chutney',
+    'Poha',
+    'Upma',
+    'Aloo Paratha',
+    'Pancakes',
+    'Poori with Masala',
+    'Banana',
+    'Chickpeas',
+    'Apple',
+    'Sprouts',
+    'Orange',
+    'Yogurt',
+    'Grapes',
+    'Mutton Biryani',
+    'Veg Fried Rice',
+    'Lemon Rice with Papad',
+    'Fish Curry with Rice',
+    'Rajma Chawal',
+    'Paneer Butter Masala with Naan',
+    'Chicken Biryani',
+    'Chicken Momo',
+    'Boiled Corn',
+    'Samosa',
+    'Roasted Makhana',
+    'Bhel Puri',
+    'Popcorn',
+    'French Fries',
+    'Roti with Mixed Veg Curry',
+    'Chappathi with Paneer Masala',
+    'Egg Curry with Rice',
+    'Vegetable Sandwich',
+    'Dhokla & Chutney',
+    'Paratha with Curd',
+    'Pulao with Raita',
+    'Dal Tadka & Rice',
+    'Veg Wrap',
+    'Fried Rice',
+    'Oats with Milk',
+    'Cornflakes with Fruits',
+  ];
+
+  late Map<String, List<String>> generatedMeals;
   late List<bool> _isExpanded;
 
   @override
   void initState() {
     super.initState();
     _isExpanded = List.generate(days.length, (_) => false);
+    generatedMeals = _generateWeeklyMealPlan();
+  }
+
+  Map<String, List<String>> _generateWeeklyMealPlan() {
+    final random = Random(widget.weekNumber); // Use weekNumber as seed
+    final Map<String, List<String>> weekMeals = {};
+    Set<String> previousDayMeals = {};
+
+    for (String day in days) {
+      Set<String> currentDayMeals = {};
+      while (currentDayMeals.length < 5) {
+        String dish = allDishes[random.nextInt(allDishes.length)];
+        if (!currentDayMeals.contains(dish) &&
+            !previousDayMeals.contains(dish)) {
+          currentDayMeals.add(dish);
+        }
+      }
+
+      List<String> meals = [];
+      for (int i = 0; i < 5; i++) {
+        meals.add('${mealTypes[i]} - ${currentDayMeals.elementAt(i)}');
+      }
+
+      weekMeals[day] = meals;
+      previousDayMeals = currentDayMeals;
+    }
+
+    return weekMeals;
   }
 
   @override
@@ -92,7 +127,7 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Meal Plan',
+              'Previous Meal Plan',
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
           ),
@@ -100,7 +135,7 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'This meal plan is for the week of ${getCurrentWeekRange()}',
+              'Week ${widget.weekNumber} (${widget.weekRange})',
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -139,7 +174,7 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
   }
 
   Widget _buildMealDetails(String day) {
-    final meals = mealDetails[day] ?? [];
+    final meals = generatedMeals[day] ?? [];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,7 +201,7 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => RecipesPage()),
+                  MaterialPageRoute(builder: (_) => const RecipesPage()),
                 );
               },
               icon: const Icon(Icons.menu_book, color: Colors.black),
@@ -180,7 +215,6 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
             ),
           ),
         ),
-
         const SizedBox(height: 10),
       ],
     );
@@ -255,36 +289,5 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
         ),
       ),
     );
-  }
-
-  String getCurrentWeekRange() {
-    DateTime now = DateTime.now();
-    DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
-    DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
-
-    String formatDate(DateTime date) {
-      return "${_monthName(date.month)} ${date.day}";
-    }
-
-    return "${formatDate(startOfWeek)} - ${formatDate(endOfWeek)}";
-  }
-
-  String _monthName(int month) {
-    const monthNames = [
-      '',
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    return monthNames[month];
   }
 }

@@ -64,63 +64,69 @@ class _RecipesPageState extends State<RecipesPage> {
   Widget build(BuildContext context) {
     final today = DateFormat('EEEE, MMM d').format(DateTime.now());
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
         backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: const Text(
-          'Nutri-mealo',
-          style: TextStyle(
-            color: Color(0xff16C47F),
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          title: const Text(
+            'Nutri-mealo',
+            style: TextStyle(
+              color: Color(0xff16C47F),
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 12),
-            const Center(
-              child: Text(
-                'Recipes',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 12),
+              const Center(
+                child: Text(
+                  'Recipes',
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 16),
-            _buildSearchBar(),
-            const SizedBox(height: 16),
-            Expanded(
-              child: ListView(
-                children: [
-                  Text(
-                    "Recipes Needed for Today ($today)",
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+              const SizedBox(height: 16),
+              _buildSearchBar(),
+              const SizedBox(height: 16),
+              Expanded(
+                child: ListView(
+                  children: [
+                    Text(
+                      "Recipes Needed for Today ($today)",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  ..._buildRecipeList(_filterRecipes(todaysRecipes)),
-                  const SizedBox(height: 24),
-                  const Text(
-                    "Other Recipes",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 8),
-                  ..._buildRecipeList(_filterRecipes(otherRecipes)),
-                ],
+                    const SizedBox(height: 8),
+                    ..._buildRecipeList(_filterRecipes(todaysRecipes)),
+                    const SizedBox(height: 24),
+                    const Text(
+                      "Other Recipes",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    ..._buildRecipeList(_filterRecipes(otherRecipes)),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

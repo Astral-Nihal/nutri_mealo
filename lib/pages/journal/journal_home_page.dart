@@ -259,7 +259,8 @@ class _JournalHomePageState extends State<JournalHomePage> {
           _circularIconButton(
             icon: Icons.account_circle,
             onTap: () {
-              Navigator.of(context).pushReplacement(
+              Navigator.push(
+                context,
                 MaterialPageRoute(builder: (_) => ProfileHomePage()),
               );
             },

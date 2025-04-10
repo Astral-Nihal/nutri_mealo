@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nutri_mealo/pages/profile/edit_profile/edit_profile_page1.dart';
-import 'package:nutri_mealo/pages/profile/profile_home_page.dart';
 
 class EditProfilePage2 extends StatefulWidget {
   const EditProfilePage2({super.key});
@@ -94,9 +92,7 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => ProfileHomePage()),
-                );
+                Navigator.of(context).popUntil((route) => route.isFirst);
               },
               child: const Text(
                 'Close',
@@ -125,6 +121,16 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
   }
 
   Column allergicSpecificationField() {
+    final List<String> allergyOptions = [
+      'None',
+      'Peanuts',
+      'Shellfish',
+      'Dairy',
+      'Gluten',
+      'Eggs',
+      'Others',
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -133,13 +139,40 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 5),
-        TextField(
-          controller: _allergicController,
+        DropdownButtonFormField<String>(
+          value:
+              _allergicController.text.isEmpty
+                  ? null
+                  : _allergicController.text,
+          hint: const Text('Select your allergy (if any)'),
+          onChanged: (value) {
+            setState(() {
+              _allergicController.text = value ?? '';
+              if (value != 'Others') {
+                _otherDietaryController.clear();
+              }
+            });
+          },
+          items:
+              allergyOptions.map((allergy) {
+                return DropdownMenuItem(value: allergy, child: Text(allergy));
+              }).toList(),
           decoration: InputDecoration(
-            hintText: "Specify if you have any allergies",
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
+        if (_allergicController.text == 'Others') ...[
+          const SizedBox(height: 10),
+          TextField(
+            controller: _otherDietaryController,
+            decoration: InputDecoration(
+              hintText: 'Please specify your allergy',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
@@ -268,52 +301,52 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
     );
   }
 
-  Widget _circularIconButton({
-    required IconData icon,
-    required VoidCallback? onTap,
-    double iconSize = 24,
-    bool disabled = false,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 1.0),
-      child: Material(
-        color: disabled ? Colors.grey[300] : Colors.grey[200],
-        shape: const CircleBorder(),
-        elevation: 0, // No shadow as you requested earlier
-        child: InkWell(
-          onTap: disabled ? null : onTap,
-          customBorder: const CircleBorder(),
-          splashColor: Colors.grey.withOpacity(0.3),
-          child: Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black54),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              icon,
-              size: iconSize,
-              color: disabled ? Colors.grey : Colors.black,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _circularIconButton({
+  //   required IconData icon,
+  //   required VoidCallback? onTap,
+  //   double iconSize = 24,
+  //   bool disabled = false,
+  // }) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 1.0),
+  //     child: Material(
+  //       color: disabled ? Colors.grey[300] : Colors.grey[200],
+  //       shape: const CircleBorder(),
+  //       elevation: 0, // No shadow as you requested earlier
+  //       child: InkWell(
+  //         onTap: disabled ? null : onTap,
+  //         customBorder: const CircleBorder(),
+  //         splashColor: Colors.grey.withOpacity(0.3),
+  //         child: Container(
+  //           padding: const EdgeInsets.all(12.0),
+  //           decoration: BoxDecoration(
+  //             border: Border.all(color: Colors.black54),
+  //             shape: BoxShape.circle,
+  //           ),
+  //           child: Icon(
+  //             icon,
+  //             size: iconSize,
+  //             color: disabled ? Colors.grey : Colors.black,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Row editProfileContentField() {
     return Row(
       children: [
         // Circular close button
-        _circularIconButton(
-          icon: Icons.arrow_back,
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => EditProfilePage1()),
-            );
-          },
-        ),
-        SizedBox(width: 100),
+        // _circularIconButton(
+        //   icon: Icons.arrow_back,
+        //   onTap: () {
+        //     Navigator.of(context).pushReplacement(
+        //       MaterialPageRoute(builder: (_) => EditProfilePage1()),
+        //     );
+        //   },
+        // ),
+        SizedBox(width: 150),
         // Title centered
         Center(
           child: Text(

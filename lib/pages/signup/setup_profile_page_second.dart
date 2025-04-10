@@ -92,6 +92,16 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
   }
 
   Column allergicSpecificationField() {
+    final List<String> allergyOptions = [
+      'None',
+      'Peanuts',
+      'Shellfish',
+      'Dairy',
+      'Gluten',
+      'Eggs',
+      'Others',
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -100,13 +110,40 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 5),
-        TextField(
-          controller: _allergicController,
+        DropdownButtonFormField<String>(
+          value:
+              _allergicController.text.isEmpty
+                  ? null
+                  : _allergicController.text,
+          hint: const Text('Select your allergy (if any)'),
+          onChanged: (value) {
+            setState(() {
+              _allergicController.text = value ?? '';
+              if (value != 'Others') {
+                _otherDietaryController.clear();
+              }
+            });
+          },
+          items:
+              allergyOptions.map((allergy) {
+                return DropdownMenuItem(value: allergy, child: Text(allergy));
+              }).toList(),
           decoration: InputDecoration(
-            hintText: "Specify if you have any allergies",
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
+        if (_allergicController.text == 'Others') ...[
+          const SizedBox(height: 10),
+          TextField(
+            controller: _otherDietaryController,
+            decoration: InputDecoration(
+              hintText: 'Please specify your allergy',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }

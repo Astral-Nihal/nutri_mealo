@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nutri_mealo/pages/profile/edit_profile/edit_profile_page1.dart';
 import 'package:nutri_mealo/pages/profile/pressed_logout_card_page.dart';
 import 'package:nutri_mealo/pages/profile/settings_home_page.dart';
-import 'package:nutri_mealo/widgets/main_navigation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileHomePage extends StatefulWidget {
@@ -86,7 +85,8 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
       icon: Icons.edit_outlined,
       title: 'Edit Profile',
       onTap: () {
-        Navigator.of(context).pushReplacement(
+        Navigator.push(
+          context,
           MaterialPageRoute(builder: (_) => EditProfilePage1()),
         );
       },
@@ -196,15 +196,15 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
       children: [
         const SizedBox(width: 15),
         // Circular close button
-        _circularIconButton(
-          icon: Icons.close,
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => const MainNavigation()),
-            );
-          },
-        ),
-        SizedBox(width: 120),
+        // _circularIconButton(
+        //   icon: Icons.close,
+        //   onTap: () {
+        //     Navigator.of(context).pushReplacement(
+        //       MaterialPageRoute(builder: (_) => const MainNavigation()),
+        //     );
+        //   },
+        // ),
+        SizedBox(width: 170),
         // Title centered
         Center(
           child: Text(
@@ -219,38 +219,38 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
     );
   }
 
-  Widget _circularIconButton({
-    required IconData icon,
-    required VoidCallback? onTap,
-    double iconSize = 24,
-    bool disabled = false,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: Material(
-        color: disabled ? Colors.grey[300] : Colors.grey[200],
-        shape: const CircleBorder(),
-        elevation: 0, // No shadow as you requested earlier
-        child: InkWell(
-          onTap: disabled ? null : onTap,
-          customBorder: const CircleBorder(),
-          splashColor: Colors.grey.withOpacity(0.3),
-          child: Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black54),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              icon,
-              size: iconSize,
-              color: disabled ? Colors.grey : Colors.black,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _circularIconButton({
+  //   required IconData icon,
+  //   required VoidCallback? onTap,
+  //   double iconSize = 24,
+  //   bool disabled = false,
+  // }) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 4.0),
+  //     child: Material(
+  //       color: disabled ? Colors.grey[300] : Colors.grey[200],
+  //       shape: const CircleBorder(),
+  //       elevation: 0, // No shadow as you requested earlier
+  //       child: InkWell(
+  //         onTap: disabled ? null : onTap,
+  //         customBorder: const CircleBorder(),
+  //         splashColor: Colors.grey.withOpacity(0.3),
+  //         child: Container(
+  //           padding: const EdgeInsets.all(12.0),
+  //           decoration: BoxDecoration(
+  //             border: Border.all(color: Colors.black54),
+  //             shape: BoxShape.circle,
+  //           ),
+  //           child: Icon(
+  //             icon,
+  //             size: iconSize,
+  //             color: disabled ? Colors.grey : Colors.black,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   AppBar commonAppBar() {
     return AppBar(

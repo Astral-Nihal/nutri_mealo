@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_mealo/pages/more/favorite_dish/favorite_dishes_page.dart';
+import 'package:nutri_mealo/pages/more/grocery_list_page.dart';
+import 'package:nutri_mealo/pages/more/previous_meal_plan/previous_meal_plan_page.dart';
 import 'package:nutri_mealo/pages/more/recipes/recipes_page.dart';
 
 class MoreHomePage extends StatefulWidget {
@@ -28,7 +30,7 @@ class _MoreHomePageState extends State<MoreHomePage> {
             'Previous Meal Plans',
             () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => RecipesPage()),
+              MaterialPageRoute(builder: (_) => PreviousMealPlanPage()),
             ),
           ),
           _buildOptionCard(
@@ -52,7 +54,7 @@ class _MoreHomePageState extends State<MoreHomePage> {
             'Grocery List',
             () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => RecipesPage()),
+              MaterialPageRoute(builder: (_) => GroceryListPage()),
             ),
           ),
         ],

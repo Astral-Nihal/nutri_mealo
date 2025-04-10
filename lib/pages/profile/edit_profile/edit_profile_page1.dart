@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_mealo/pages/profile/edit_profile/edit_profile_page2.dart';
-import 'package:nutri_mealo/pages/profile/profile_home_page.dart';
 
 class EditProfilePage1 extends StatefulWidget {
   const EditProfilePage1({super.key});
@@ -297,53 +296,53 @@ class _EditProfilePage1State extends State<EditProfilePage1> {
     );
   }
 
-  Widget _circularIconButton({
-    required IconData icon,
-    required VoidCallback? onTap,
-    double iconSize = 24,
-    bool disabled = false,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: Material(
-        color: disabled ? Colors.grey[300] : Colors.grey[200],
-        shape: const CircleBorder(),
-        elevation: 0, // No shadow as you requested earlier
-        child: InkWell(
-          onTap: disabled ? null : onTap,
-          customBorder: const CircleBorder(),
-          splashColor: Colors.grey.withOpacity(0.3),
-          child: Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black54),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              icon,
-              size: iconSize,
-              color: disabled ? Colors.grey : Colors.black,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget _circularIconButton({
+  //   required IconData icon,
+  //   required VoidCallback? onTap,
+  //   double iconSize = 24,
+  //   bool disabled = false,
+  // }) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 4.0),
+  //     child: Material(
+  //       color: disabled ? Colors.grey[300] : Colors.grey[200],
+  //       shape: const CircleBorder(),
+  //       elevation: 0, // No shadow as you requested earlier
+  //       child: InkWell(
+  //         onTap: disabled ? null : onTap,
+  //         customBorder: const CircleBorder(),
+  //         splashColor: Colors.grey.withOpacity(0.3),
+  //         child: Container(
+  //           padding: const EdgeInsets.all(12.0),
+  //           decoration: BoxDecoration(
+  //             border: Border.all(color: Colors.black54),
+  //             shape: BoxShape.circle,
+  //           ),
+  //           child: Icon(
+  //             icon,
+  //             size: iconSize,
+  //             color: disabled ? Colors.grey : Colors.black,
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Row editProfileContentField() {
     return Row(
       children: [
         const SizedBox(width: 15),
-        // Circular close button
-        _circularIconButton(
-          icon: Icons.arrow_back,
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => ProfileHomePage()),
-            );
-          },
-        ),
-        SizedBox(width: 100),
+        // // Circular close button
+        // _circularIconButton(
+        //   icon: Icons.arrow_back,
+        //   onTap: () {
+        //     Navigator.of(context).pushReplacement(
+        //       MaterialPageRoute(builder: (_) => ProfileHomePage()),
+        //     );
+        //   },
+        // ),
+        SizedBox(width: 150),
         // Title centered
         Center(
           child: Text(
@@ -371,7 +370,8 @@ class _EditProfilePage1State extends State<EditProfilePage1> {
           });
 
           if (formValid && dobValid) {
-            Navigator.of(context).pushReplacement(
+            Navigator.push(
+              context,
               MaterialPageRoute(builder: (_) => EditProfilePage2()),
             );
           }

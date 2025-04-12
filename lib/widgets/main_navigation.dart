@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutri_mealo/pages/goals/goals_home_page.dart';
 import 'package:nutri_mealo/pages/journal/journal_home_page.dart';
 import 'package:nutri_mealo/pages/meal_plan/meal_plan_home_page.dart';
 import 'package:nutri_mealo/pages/more/more_home_page.dart';
@@ -19,7 +20,7 @@ class _MainNavigationState extends State<MainNavigation> {
     JournalHomePage(),
     StatsHomePage(),
     MealPlanHomePage(),
-    MealPlanHomePage(),
+    GoalsHomePage(),
     MoreHomePage(),
   ];
 

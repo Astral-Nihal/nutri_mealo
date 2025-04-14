@@ -259,6 +259,7 @@ class _SignupPageEnterDetailsState extends State<SignupPageEnterDetails> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: const Text(
         'Nutri-mealo',

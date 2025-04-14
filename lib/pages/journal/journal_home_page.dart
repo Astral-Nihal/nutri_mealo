@@ -430,11 +430,9 @@ class _JournalHomePageState extends State<JournalHomePage> {
                 firstDate: DateTime(1900),
                 lastDate: DateTime.now(),
               );
-              if (picked != null) {
-                setState(() {
-                  _selectedDate = picked;
-                });
-              }
+              setState(() {
+                _selectedDate = picked!;
+              });
             },
           ),
 
@@ -849,6 +847,7 @@ class _JournalHomePageState extends State<JournalHomePage> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: const Text(
         'Nutri-mealo',

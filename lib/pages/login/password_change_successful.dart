@@ -101,6 +101,7 @@ class _PasswordChangeSuccessfulState extends State<PasswordChangeSuccessful> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: const Text(
         'Nutri-mealo',

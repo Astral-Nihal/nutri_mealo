@@ -61,7 +61,8 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
       icon: Icons.logout,
       title: 'Logout',
       onTap: () {
-        Navigator.of(context).pushReplacement(
+        Navigator.push(
+          context,
           MaterialPageRoute(builder: (_) => PressedLogoutCardPage()),
         );
       },
@@ -73,7 +74,8 @@ class _ProfileHomePageState extends State<ProfileHomePage> {
       icon: Icons.settings_outlined,
       title: 'Settings',
       onTap: () {
-        Navigator.of(context).pushReplacement(
+        Navigator.push(
+          context,
           MaterialPageRoute(builder: (_) => SettingsHomePage()),
         );
       },

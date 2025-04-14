@@ -201,6 +201,7 @@ class _OtpSentAndEnterPageState extends State<OtpSentAndEnterPage> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: const Text(
         'Nutri-mealo',

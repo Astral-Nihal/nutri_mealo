@@ -135,17 +135,7 @@ class _SettingsHomePageState extends State<SettingsHomePage> {
   Row topBarField(BuildContext context) {
     return Row(
       children: [
-        const SizedBox(width: 15),
-        // Circular close button
-        _circularIconButton(
-          icon: Icons.arrow_back,
-          onTap: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => const ProfileHomePage()),
-            );
-          },
-        ),
-        SizedBox(width: 120),
+        SizedBox(width: 180),
         // Title centered
         Center(
           child: Text(
@@ -157,39 +147,6 @@ class _SettingsHomePageState extends State<SettingsHomePage> {
         // Space to balance right side
         const SizedBox(width: 48),
       ],
-    );
-  }
-
-  Widget _circularIconButton({
-    required IconData icon,
-    required VoidCallback? onTap,
-    double iconSize = 24,
-    bool disabled = false,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: Material(
-        color: disabled ? Colors.grey[300] : Colors.grey[200],
-        shape: const CircleBorder(),
-        elevation: 0, // No shadow as you requested earlier
-        child: InkWell(
-          onTap: disabled ? null : onTap,
-          customBorder: const CircleBorder(),
-          splashColor: Colors.grey.withOpacity(0.3),
-          child: Container(
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black54),
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              icon,
-              size: iconSize,
-              color: disabled ? Colors.grey : Colors.black,
-            ),
-          ),
-        ),
-      ),
     );
   }
 

@@ -124,6 +124,7 @@ class _MealPlanHomePageState extends State<MealPlanHomePage> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       elevation: 0,
       title: const Text(

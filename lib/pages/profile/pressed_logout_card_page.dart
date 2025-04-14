@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nutri_mealo/pages/login/login_page_enter_details.dart';
-import 'package:nutri_mealo/pages/profile/profile_home_page.dart';
 
 class PressedLogoutCardPage extends StatefulWidget {
   const PressedLogoutCardPage({super.key});
@@ -98,7 +97,6 @@ class _PressedLogoutCardPageState extends State<PressedLogoutCardPage> {
               const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the popup
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (_) => LoginPageEnterDetails()),
                   );
@@ -155,9 +153,7 @@ class _PressedLogoutCardPageState extends State<PressedLogoutCardPage> {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (_) => ProfileHomePage()),
-                ); // Or just close the current screen if needed
+                Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Color(0xffFF9D23),
@@ -179,6 +175,7 @@ class _PressedLogoutCardPageState extends State<PressedLogoutCardPage> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: const Text(
         'Nutri-mealo',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nutri_mealo/pages/profile/edit_profile/edit_profile_page3.dart';
 
 class EditProfilePage2 extends StatefulWidget {
   const EditProfilePage2({super.key});
@@ -9,6 +10,8 @@ class EditProfilePage2 extends StatefulWidget {
 
 class _EditProfilePage2State extends State<EditProfilePage2> {
   final TextEditingController _allergicController = TextEditingController();
+  final TextEditingController _otherAllergicController =
+      TextEditingController();
   final TextEditingController _otherDietaryController = TextEditingController();
 
   List<String> _selectedDietaryPreferences = [];
@@ -61,9 +64,7 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
                 ),
               const SizedBox(height: 35),
               tastePreferencesField(),
-              const SizedBox(height: 35),
-              physicalActivityField(),
-              const SizedBox(height: 120),
+              const SizedBox(height: 200),
               nextButtonField(),
               const SizedBox(height: 5),
               skipButtonField(),
@@ -85,17 +86,20 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
             borderRadius: BorderRadius.circular(16),
           ),
           title: const Text(
-            'Success',
+            'Skip?',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          content: const Text('Your changes have been saved.'),
+          content: const Text('Are you sure you want to skip to next page?'),
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => EditProfilePage3()),
+                );
               },
               child: const Text(
-                'Close',
+                'Yes',
                 style: TextStyle(color: Color(0xff16C47F)),
               ),
             ),
@@ -149,7 +153,7 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
             setState(() {
               _allergicController.text = value ?? '';
               if (value != 'Others') {
-                _otherDietaryController.clear();
+                _otherAllergicController.clear();
               }
             });
           },
@@ -164,7 +168,7 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
         if (_allergicController.text == 'Others') ...[
           const SizedBox(height: 10),
           TextField(
-            controller: _otherDietaryController,
+            controller: _otherAllergicController,
             decoration: InputDecoration(
               hintText: 'Please specify your allergy',
               border: OutlineInputBorder(
@@ -301,61 +305,16 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
     );
   }
 
-  // Widget _circularIconButton({
-  //   required IconData icon,
-  //   required VoidCallback? onTap,
-  //   double iconSize = 24,
-  //   bool disabled = false,
-  // }) {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: 1.0),
-  //     child: Material(
-  //       color: disabled ? Colors.grey[300] : Colors.grey[200],
-  //       shape: const CircleBorder(),
-  //       elevation: 0, // No shadow as you requested earlier
-  //       child: InkWell(
-  //         onTap: disabled ? null : onTap,
-  //         customBorder: const CircleBorder(),
-  //         splashColor: Colors.grey.withOpacity(0.3),
-  //         child: Container(
-  //           padding: const EdgeInsets.all(12.0),
-  //           decoration: BoxDecoration(
-  //             border: Border.all(color: Colors.black54),
-  //             shape: BoxShape.circle,
-  //           ),
-  //           child: Icon(
-  //             icon,
-  //             size: iconSize,
-  //             color: disabled ? Colors.grey : Colors.black,
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Row editProfileContentField() {
     return Row(
       children: [
-        // Circular close button
-        // _circularIconButton(
-        //   icon: Icons.arrow_back,
-        //   onTap: () {
-        //     Navigator.of(context).pushReplacement(
-        //       MaterialPageRoute(builder: (_) => EditProfilePage1()),
-        //     );
-        //   },
-        // ),
         SizedBox(width: 150),
-        // Title centered
         Center(
           child: Text(
             'Edit Profile',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-
-        // Space to balance right side
         const SizedBox(width: 48),
       ],
     );
@@ -366,7 +325,10 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: ElevatedButton(
         onPressed: () {
-          _showConfirmationPopup();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => EditProfilePage3()),
+          );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xffF93827),
@@ -376,7 +338,7 @@ class _EditProfilePage2State extends State<EditProfilePage2> {
           ),
         ),
         child: const Text(
-          'Save Changes',
+          'Next',
           style: TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),

@@ -154,6 +154,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: const Text(
         'Nutri-mealo',

@@ -64,6 +64,7 @@ class _MoreHomePageState extends State<MoreHomePage> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       elevation: 0,
       title: const Text(

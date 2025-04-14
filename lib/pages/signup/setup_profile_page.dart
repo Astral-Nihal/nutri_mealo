@@ -194,13 +194,11 @@ class _SetupProfilePageState extends State<SetupProfilePage> {
                 firstDate: DateTime(1900),
                 lastDate: DateTime.now(),
               );
-              if (pickedDate != null) {
-                setState(() {
-                  _selectedDate = pickedDate;
-                  _calculatedAge = _calculateAge(pickedDate);
-                  _dobError = false;
-                });
-              }
+              setState(() {
+                _selectedDate = pickedDate;
+                _calculatedAge = _calculateAge(pickedDate!);
+                _dobError = false;
+              });
             },
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 15),
@@ -344,6 +342,7 @@ class _SetupProfilePageState extends State<SetupProfilePage> {
 
   AppBar commonAppBar() {
     return AppBar(
+      automaticallyImplyLeading: false,
       backgroundColor: Colors.white,
       title: const Text(
         'Nutri-mealo',

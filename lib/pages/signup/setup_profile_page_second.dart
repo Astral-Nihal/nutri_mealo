@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutri_mealo/pages/signup/all_done_page.dart';
+import 'package:nutri_mealo/pages/signup/setup_profile_page_third.dart';
 
 class SetupProfilePageSecond extends StatefulWidget {
   const SetupProfilePageSecond({super.key});
@@ -10,11 +10,12 @@ class SetupProfilePageSecond extends StatefulWidget {
 
 class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
   final TextEditingController _allergicController = TextEditingController();
+  final TextEditingController _otherAllergicController =
+      TextEditingController();
   final TextEditingController _otherDietaryController = TextEditingController();
 
   List<String> _selectedDietaryPreferences = [];
   final List<String> _selectedTastePreferences = [];
-  String? _selectedPhysicalActivity;
 
   final List<String> dietaryOptions = ['Veg', 'Non-Veg', 'Others'];
   final List<String> tasteOptions = [
@@ -26,7 +27,6 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
     'Umami',
     'Astringent',
   ];
-  final List<String> physicalActivityOptions = ['Low', 'Moderate', 'Heavy'];
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +61,7 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
               ),
             const SizedBox(height: 35),
             tastePreferencesField(),
-            const SizedBox(height: 35),
-            physicalActivityField(),
-            const SizedBox(height: 120),
+            const SizedBox(height: 200),
             nextButtonField(),
             const SizedBox(height: 5),
             skipButtonField(),
@@ -79,9 +77,9 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
       padding: const EdgeInsets.symmetric(horizontal: 100),
       child: TextButton(
         onPressed: () {
-          Navigator.of(
-            context,
-          ).pushReplacement(MaterialPageRoute(builder: (_) => AllDonePage()));
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => SetupProfilePageThird()),
+          );
         },
         child: const Text(
           "Skip for now?",
@@ -120,14 +118,17 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
             setState(() {
               _allergicController.text = value ?? '';
               if (value != 'Others') {
-                _otherDietaryController.clear();
+                _otherAllergicController.clear();
               }
             });
           },
           items:
-              allergyOptions.map((allergy) {
-                return DropdownMenuItem(value: allergy, child: Text(allergy));
-              }).toList(),
+              allergyOptions
+                  .map(
+                    (allergy) =>
+                        DropdownMenuItem(value: allergy, child: Text(allergy)),
+                  )
+                  .toList(),
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           ),
@@ -135,7 +136,7 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
         if (_allergicController.text == 'Others') ...[
           const SizedBox(height: 10),
           TextField(
-            controller: _otherDietaryController,
+            controller: _otherAllergicController,
             decoration: InputDecoration(
               hintText: 'Please specify your allergy',
               border: OutlineInputBorder(
@@ -221,57 +222,6 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
     );
   }
 
-  Column physicalActivityField() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          "Physical Activity",
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 5),
-        Row(
-          children: [
-            Expanded(
-              child: DropdownButtonFormField<String>(
-                value: _selectedPhysicalActivity,
-                hint: const Text('Select your physical activity'),
-                onChanged: (value) {
-                  setState(() {
-                    _selectedPhysicalActivity = value;
-                  });
-                },
-                items:
-                    ['Low', 'Moderate', 'Heavy']
-                        .map(
-                          (activity) => DropdownMenuItem(
-                            value: activity,
-                            child: Text(activity),
-                          ),
-                        )
-                        .toList(),
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ),
-            if (_selectedPhysicalActivity != null)
-              IconButton(
-                icon: const Icon(Icons.clear, color: Colors.red),
-                onPressed: () {
-                  setState(() {
-                    _selectedPhysicalActivity = null;
-                  });
-                },
-              ),
-          ],
-        ),
-      ],
-    );
-  }
-
   Center setupProfileContentField() {
     return const Center(
       child: Text(
@@ -290,9 +240,9 @@ class _SetupProfilePageSecondState extends State<SetupProfilePageSecond> {
       padding: const EdgeInsets.only(left: 50, right: 50),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.of(
-            context,
-          ).pushReplacement(MaterialPageRoute(builder: (_) => AllDonePage()));
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => SetupProfilePageThird()),
+          );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xffF93827),
